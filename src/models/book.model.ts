@@ -6,7 +6,6 @@ export interface IBook extends Document {
   author: string;
   publicationYear: number;
   availableCount: number;
-  availabilityStatus: boolean;
 }
 
 const bookSchema = new Schema<IBook>(
@@ -27,10 +26,6 @@ const bookSchema = new Schema<IBook>(
       type: Number,
       required: [true, "Available count is required"],
       default: 0,
-    },
-    availabilityStatus: {
-      type: Boolean,
-      default: false,
     },
   },
   {
