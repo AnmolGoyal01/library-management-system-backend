@@ -30,10 +30,12 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 import userRouter from "./routes/user.routes";
 import healthCheckRouter from "./routes/healthCheck.routes";
 import bookRouter from "./routes/book.routes";
+import transactionRouter from "./routes/transaction.routes";
 
 // Routes declare
 app.use(`${API_VERSION}/user`, userRouter);
 app.use(`${API_VERSION}/health-check`, healthCheckRouter);
 app.use(`${API_VERSION}/books`, bookRouter);
+app.use(`${API_VERSION}/transactions`, transactionRouter);
 
 export default app;
