@@ -5,7 +5,7 @@ import Book from "../models/book.model";
 const getAvailableBooks = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 5;
+    const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
 
     const books = await Book.find({ availableCount: { $gt: 0 } })
