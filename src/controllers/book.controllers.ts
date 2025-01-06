@@ -95,12 +95,6 @@ const updateBook = asyncHandler(
     if (!book) {
       throw new ApiError(404, "Book not found");
     }
-    const alreadyExists = await Book.findOne({
-      $and: [{ title }, { author }, { publicationYear }],
-    });
-    if (alreadyExists) {
-      throw new ApiError(400, "Book with same details already exists");
-    }
     book.title = title;
     book.author = author;
     book.publicationYear = publicationYear;
