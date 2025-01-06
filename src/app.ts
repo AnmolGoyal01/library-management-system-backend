@@ -27,9 +27,11 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Routes import
+import userRouter from "./routes/user.routes";
 import healthCheckRouter from "./routes/healthCheck.routes";
 
 // Routes declare
+app.use(`${API_VERSION}/user`, userRouter);
 app.use(`${API_VERSION}/health-check`, healthCheckRouter);
 
 export default app;
