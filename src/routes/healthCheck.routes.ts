@@ -2,7 +2,7 @@ import {
   healthCheck,
   protectedRoute,
   adminRoute,
-} from "../controllers/healthCheck.controller";
+} from "../controllers/healthCheck.controllers";
 import { verifyJwt, adminOnly } from "../middlewares/auth.middleware";
 import express from "express";
 
