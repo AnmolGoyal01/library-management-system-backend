@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import ApiResponse from "./utils/ApiResponse";
+import { API_VERSION } from "./constants";
 
 const app = express();
 
@@ -24,5 +25,11 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const response = new ApiResponse(statusCode, { errors }, message);
   res.status(statusCode).json(response);
 });
+
+// Routes import
+import healthCheckRouter from "./routes/healthCheck.routes";
+
+// Routes declare
+app.use(`${API_VERSION}/health-check`, healthCheckRouter);
 
 export default app;
