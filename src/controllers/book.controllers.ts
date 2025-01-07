@@ -53,7 +53,7 @@ const addBook = asyncHandler(
     const { title, author, publicationYear, availableCount } = req.body;
     if (
       [title, author, publicationYear, availableCount].some(
-        (field) => !field || field.trim() === ""
+        (field) => !field || field.trim === ""
       )
     ) {
       throw new ApiError(400, "All fields are required");
@@ -86,7 +86,7 @@ const updateBook = asyncHandler(
     const { title, author, publicationYear, availableCount } = req.body;
     if (
       [title, author, publicationYear, availableCount].some(
-        (field) => !field || field.trim() === ""
+        (field) => !field || field.trim === ""
       )
     ) {
       throw new ApiError(400, "All fields are required");
@@ -116,9 +116,7 @@ const deleteBook = asyncHandler(
     if (!book) {
       throw new ApiError(404, "Book not found");
     }
-    res
-      .status(200)
-      .json(new ApiResponse(200, [], "Book deleted successfully"));
+    res.status(200).json(new ApiResponse(200, [], "Book deleted successfully"));
   }
 );
 
