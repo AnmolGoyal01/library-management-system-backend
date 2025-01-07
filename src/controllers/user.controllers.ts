@@ -8,10 +8,10 @@ interface verifiedRequest extends Request {
 
 const registerUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, password, role = "admin" } = req.body;
+    const { name, email, password, isAdmin = true } = req.body;
 
     if (
-      [name, email, password].some((field) => !field || field.trim() === "")
+      [name, email, password].some((field) => !field || field.trim === "")
     ) {
       throw new ApiError(400, "All fields are required");
     }
@@ -32,7 +32,7 @@ const registerUser = asyncHandler(
       name,
       email,
       password,
-      isAdmin: role === "admin",
+      isAdmin,
     });
 
     const createdUser = await User.findById(user._id).select("-password");
@@ -101,10 +101,12 @@ const logoutUser = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(200, {}, "User logged out successfully"));
 });
 
-const getCurrentUser = asyncHandler(async (req: verifiedRequest, res: Response) => {
-  res
-    .status(200)
-    .json(new ApiResponse(200, req.user, "User info fetched successfully"));
-});
+const getCurrentUser = asyncHandler(
+  async (req: verifiedRequest, res: Response) => {
+    res
+      .status(200)
+      .json(new ApiResponse(200, req.user, "User info fetched successfully"));
+  }
+);
 
 export { registerUser, loginUser, logoutUser, getCurrentUser };
