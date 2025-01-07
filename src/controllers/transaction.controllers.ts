@@ -84,4 +84,37 @@ const returnBook = asyncHandler(
   }
 );
 
-export { borrowBook, returnBook };
+const getBorrowedBooksByUser = asyncHandler(
+  async (req: verifiedRequest, res: Response, next: NextFunction) => {
+    const { page = 1, limit = 10 } = req.query;
+    const userId = req.user._id;
+
+    const transactions = await Transaction.find({
+      user: userId,
+      returnDate: null,
+    })
+      .populate("book")
+      .skip((+page - 1) * +limit)
+      .limit(+limit);
+
+    const totalBorrowedBooks = await Transaction.countDocuments({
+      user: userId,
+      returnDate: null,
+    });
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          totalBorrowedBooks,
+          currentPage: +page,
+          totalPages: Math.ceil(totalBorrowedBooks / +limit),
+          borrowedBooks: transactions,
+        },
+        "Borrowed books fetched successfully"
+      )
+    );
+  }
+);
+
+export { borrowBook, returnBook, getBorrowedBooksByUser };
